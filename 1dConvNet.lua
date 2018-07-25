@@ -73,7 +73,7 @@ print(post_cov4)
 
 
 
-print('\n--------------------Custom Test-------------\n')
+print('\n--------------------Custom Test 1-------------\n')
 
 
 -- 7x3 -> 7x1
@@ -105,11 +105,35 @@ for index=1, x:size(1) do
     print(dot)
 end
 
---weights = torch.reshape(3,3)
 
---weights=torch.reshape(mlp.weight,inp) -- weights applied to all
---bias= mlp.bias[1];
---for i=1,x:size(1) do -- for each sequence element
- -- element= x[i]; -- features of ith sequence element
-  --print(element:dot(weights) + bias)
+print('\n--------------------Custom Test 2-------------\n')
+
+-- Input 7x3 -> 5x6 , kenal = 3
+
+x = torch.Tensor(7,3)
+s = x:storage()
+for i=1,s:size() do -- fill up the Storage
+  s[i] = i
+end
+
+print('Fake Data')
+print(x)
+
+weight = torch.Tensor(6,3)
+s = weight:storage()
+for i=1,s:size() do -- fill up the Storage
+    s[i] = 3
+end
+
+
+print('Fake weight')
+print(weight)
+
+fakeModel = nn.TemporalConvolution(3,6,3,1)
+print(fakeModel:forward(x))
+print(fakeModel.weight)
+--for index=1, x:size(1) do
+--    ele = x[index];
+
+--    print(ele)
 --end
