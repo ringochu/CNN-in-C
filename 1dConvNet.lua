@@ -1,7 +1,6 @@
 require 'nn'
 require 'torch'
 require 'math'
-require 'gnuplot'
 
 print('<------------Block2 simulation--------->')
 
@@ -71,3 +70,46 @@ print('Bias')
 print(block2_cov4.bias)
 post_cov4 = block2_cov4:forward(post_cov3)
 print(post_cov4)
+
+
+
+print('\n--------------------Custom Test-------------\n')
+
+
+-- 7x3 -> 7x1
+x = torch.Tensor(7,3)
+s = x:storage()
+for i=1,s:size() do -- fill up the Storage
+  s[i] = i
+end
+
+
+weight = torch.Tensor(1,3)
+s = weight:storage()
+for i=1,s:size() do -- fill up the Storage
+    s[i] = 3
+end
+
+
+print('Fake weight')
+print(weight)
+
+print('Fake data')
+print(x)
+
+print('result')
+weights = torch.reshape(weight, 3)
+for index=1, x:size(1) do
+    ele = x[index];
+    dot = ele:dot(weights)
+    print(dot)
+end
+
+--weights = torch.reshape(3,3)
+
+--weights=torch.reshape(mlp.weight,inp) -- weights applied to all
+--bias= mlp.bias[1];
+--for i=1,x:size(1) do -- for each sequence element
+ -- element= x[i]; -- features of ith sequence element
+  --print(element:dot(weights) + bias)
+--end
