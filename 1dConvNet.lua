@@ -137,3 +137,26 @@ print(fakeModel.weight)
 
 --    print(ele)
 --end
+
+print('\n--------------------Custom Test 3-------------\n')
+
+
+inp=2;  -- dimensionality of one sequence element
+outp=4; -- number of derived features for one sequence element
+kw=1;   -- kernel only operates on one sequence element per step
+dw=1;   -- we step once and go on to the next sequence element
+
+block2_cov1=nn.TemporalConvolution(inp,outp,kw,dw)
+
+imgdata =torch.rand(7,inp) -- a sequence of 7 elements
+
+print('Random spectial data')
+print(imgdata)
+print('Weight:')
+print(block2_cov1.weight)
+print('Bias')
+print(block2_cov1.bias)
+
+post_cov1 = block2_cov1:forward(imgdata)
+print('dimensionality after first 1d')
+print(post_cov1)
